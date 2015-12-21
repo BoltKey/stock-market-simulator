@@ -1,0 +1,18 @@
+body {
+	padding: 0px;
+}
+#game {
+	width: 960;
+	height: 640;
+	padding: 20px;
+	background-color: #CCFFDD;
+	margin: 0px;
+}
+#graph {
+	
+	background-color: #DDE3FF;
+	float: right;
+}
+#activecomp {
+	
+}
