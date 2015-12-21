@@ -25,7 +25,5 @@ foreach (glob("game/*.js") as $filename)
 	<button onclick="activeCompany.sell(1)">Sell 1</button>
 	<div id="companyList">
 	</div> <br>
-	<div id="stocklist">
-	</div>
 </div>
 </body>

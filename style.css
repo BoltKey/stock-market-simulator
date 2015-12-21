@@ -1,13 +1,15 @@
 body {
 	padding: 0px;
 	font-family: arial;
+	color: white;
+	
 }
 #game {
 	width: 960;
+	margin: 0px;
 	height: 640;
 	padding: 20px;
-	background-color: #CCFFDD;
-	margin: 0px;
+	background-color: #003300;
 }
 #graph {
 	
@@ -19,4 +21,19 @@ body {
 }
 #inventory {
 	height: 100px;
+}
+#companylist {
+	height: 300px;
+}
+#companytable, #inventorytable {
+	text-align: center;
+	padding: 8px;
+	background-color: black;
+	color: white;
+}
+tr:hover {
+	background-color: #191919 !important;
+}
+td {
+	padding: 3px;
 }

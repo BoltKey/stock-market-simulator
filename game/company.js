@@ -1,5 +1,5 @@
 function Company(name, mincost, production, buylimit, speed, wildness, precision, special) {
-	this.tendence = 1;
+	this.tendence = 0.98;
 	this.name = name;
 	this.mincost = mincost;
 	this.precision = precision;
@@ -31,9 +31,7 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 				}
 			}
 			this.priceHistory.push(this.cost);
-			this.tendence += (0.5 - Math.random()) * 0.015;
-			this.tendence -= (this.tendence - 1) / 30;
-			this.tendence -= this.cost / (mincost * 5000);
+			this.changeTend();
 			//this.transactions.sort(function(a, b) {return b.ago - a.ago});
 			var rem = false;
 			for (b of this.transactions) {
@@ -49,10 +47,16 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 			//this.transactions.sort(function(a, b) {return b.ago - a.ago});
 		}
 	}
+	this.changeTend = function() {
+		this.tendence += (0.5 - Math.random()) * 0.015;
+		this.tendence -= (this.tendence - 1) / 30;
+		this.tendence -= this.cost / (mincost * 5000);
+	}
 	this.buy = function(amt) {
 		for (key of Object.keys(this.production)) {
 			if ($.grep(stock, function(a) {return a.name === key}).length === 0 && key !== "money") {
-				stock.push(new Company(key, 2, {}, 0, 1, 2));
+				stock.push(new Company(key, 2, {}, 0, 1, 7, 2));
+				updateButtons();
 			}
 		}
 		if (this.owned + amt > this.buylimit) {
@@ -67,7 +71,7 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 	}
 	
 	this.sell = function(amt) {
-		if (this.owned >= 1) {
+		if (this.owned > 0) {
 			amt = Math.min(amt, this.owned);
 			if (amt > 0) {
 				money += this.cost * amt;
