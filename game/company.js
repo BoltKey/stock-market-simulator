@@ -1,16 +1,12 @@
-function Company(name, mincost, production, buylimit, speed, precision, special) {
+function Company(name, mincost, production, buylimit, speed, wildness, precision, special) {
 	this.tendence = 1;
 	this.name = name;
 	this.mincost = mincost;
 	this.precision = precision;
-	this.cost = Math.floor(this.mincost * (Math.random() + 1));
+	this.cost = Math.floor(this.mincost * (Math.random() + 3));
 	this.production = production;
 	this.graphDensity = 200;
-	for (key of Object.keys(this.production)) {
-		if (stock[key] === undefined && key !== "money") {
-			stock.push(new Company(key, 2, {}, 0, 1, 2));
-		}
-	}
+	this.wildness = wildness;
 	this.transactions = [];
 	this.sold = [];
 	this.special = special;
@@ -20,22 +16,22 @@ function Company(name, mincost, production, buylimit, speed, precision, special)
 	this.priceHistory = [this.cost];
 	this.tick = function(multi) {
 		for (var i = 0; i < multi; ++i) {
-			this.cost = (0.9 + (Math.random() * 0.2)) * this.tendence * this.cost;
-			this.cost += mincost / 10;
+			this.cost = ((1 - this.wildness / 100) + (Math.random() * (this.wildness / 50))) * this.tendence * this.cost;
+			this.cost += mincost / 5;
 			this.cost = Math.floor(this.cost * Math.pow(10, this.precision)) / Math.pow(10, this.precision);
-			for (k of Object.keys(this.production)) {
-				var t = this.production[k] * this.owned
-				if (k === "money") 
-					money += t;
-				else {
-					var u = $.grep(stock, function(e){return e.name === k})[0];
-					u.owned += t;
+			if (this.owned > 0) {
+				for (k of Object.keys(this.production)) {
+					var t = this.production[k] * this.owned
+					if (k === "money") 
+						money += t;
+					else {
+						var u = $.grep(stock, function(e){return e.name === k})[0];
+						u.owned += t;
+					}
 				}
 			}
 			this.priceHistory.push(this.cost);
-			if (Math.random() > 0.99) {
-				this.tendence += (0.5 - Math.random()) * 0.10;
-			}
+			this.tendence += (0.5 - Math.random()) * 0.015;
 			this.tendence -= (this.tendence - 1) / 30;
 			this.tendence -= this.cost / (mincost * 5000);
 			//this.transactions.sort(function(a, b) {return b.ago - a.ago});
@@ -54,6 +50,11 @@ function Company(name, mincost, production, buylimit, speed, precision, special)
 		}
 	}
 	this.buy = function(amt) {
+		for (key of Object.keys(this.production)) {
+			if ($.grep(stock, function(a) {return a.name === key}).length === 0 && key !== "money") {
+				stock.push(new Company(key, 2, {}, 0, 1, 2));
+			}
+		}
 		if (this.owned + amt > this.buylimit) {
 			amt = this.buylimit - this.owned;
 		}
@@ -62,6 +63,7 @@ function Company(name, mincost, production, buylimit, speed, precision, special)
 			this.owned += amt;
 			this.recordTrans(true, amt);
 		}
+		draw();
 	}
 	
 	this.sell = function(amt) {
@@ -74,6 +76,7 @@ function Company(name, mincost, production, buylimit, speed, precision, special)
 			}
 			
 		}
+		draw();
 		
 	}
 	this.recordTrans = function(bought, amt) {
@@ -87,14 +90,17 @@ function Company(name, mincost, production, buylimit, speed, precision, special)
 			t.push({ago: 1, amt: amt, bought: bought});
 	}
 	this.draw = function() {
-		var prodstring = "<b> Production: </b><br>";
-		for (e of Object.keys(this.production)) {
-			prodstring += "&nbsp <b>" + e + ":</b> " + this.production[e] + " x " + this.owned + " = <b>" + this.production[e] * this.owned + "</b><br>";
+		var prodstring = "";
+		if (this.production.money !== undefined) {
+			prodstring = "<b> Production</b><br>";
+			for (e of Object.keys(this.production)) {
+				prodstring += "&nbsp <b>" + e + ":</b> " + this.production[e] + " x " + this.owned + " = <b>" + this.production[e] * this.owned + "</b><br>";
+			}
 		}
 		var string = this.name + "<br>" +
-					"Cost: " + this.cost + "<br>" + 
-					"Owned: " + Math.floor(this.owned) + "<br>" +
-					"Max: " + this.buylimit + "<br>" +
+					"Price: " + this.cost + "<br>" + 
+					"Owned: " + Math.floor(this.owned) + "<br>" + ((this.production.money !== undefined) ? (
+					"Max: " + this.buylimit + "<br>") : "") +
 					prodstring;
 		this.graph();
 		$("#activecomp").html(string);

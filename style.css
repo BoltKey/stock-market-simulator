@@ -1,5 +1,6 @@
 body {
 	padding: 0px;
+	font-family: arial;
 }
 #game {
 	width: 960;
@@ -14,5 +15,8 @@ body {
 	float: right;
 }
 #activecomp {
-	
+	height: 200px;
+}
+#inventory {
+	height: 100px;
 }
