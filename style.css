@@ -2,17 +2,42 @@ body {
 	padding: 0px;
 	font-family: arial;
 	color: white;
-	
+}
+body:hover {
+	cursor: Default;
+}
+::-moz-selection { /* firefox new ie? lol */
+    color: none;
+    background: none;
+}
+
+::selection {
+    color: none;
+    background: none;
 }
 #game {
-	width: 960;
+	width: 960px;
 	margin: 0px;
 	height: 640;
 	padding: 20px;
 	background-color: #003300;
 }
+#statusLog {
+	width: 390;
+	height: 300;
+	overflow-y: auto;
+	float: right;
+	background-color: brown;
+	margin: 10;
+}
+.statusmessage {
+	margin: 10;
+}
+#companylist {
+	height: 300px;
+	float: left;
+}
 #graph {
-	
 	background-color: #DDE3FF;
 	float: right;
 }
@@ -20,16 +45,19 @@ body {
 	height: 200px;
 }
 #inventory {
-	height: 100px;
-}
-#companylist {
-	height: 300px;
+	width: 40%;
 }
 #companytable, #inventorytable {
 	text-align: center;
 	padding: 8px;
 	background-color: black;
 	color: white;
+}
+.clickable {
+	background-color: #442200;
+}
+.clickable:hover {
+	background-color: #884400;
 }
 tr:hover {
 	background-color: #191919 !important;

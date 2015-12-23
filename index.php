@@ -19,11 +19,10 @@ foreach (glob("game/*.js") as $filename)
 	<canvas id="graph" width=620 height=300></canvas>
 	<div id="activecomp"></div>
 	<div id="money"></div>
+	<div id="statusLog"></div>
 	<div id="inventory"></div>
+	<div id="companyList"></div>
 	
-	<button onclick="activeCompany.buy(1)">Buy 1</button>
-	<button onclick="activeCompany.sell(1)">Sell 1</button>
-	<div id="companyList">
-	</div> <br>
+	<br>
 </div>
 </body>
