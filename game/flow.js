@@ -12,7 +12,13 @@ log: function() {companies[0].tendence = 0.99; companies[0].low = false; return 
 log: function() {return "The sell price is good now, go ahead and sell your lemonade stalls to get money. The red line is 'buy' price and the green line is 'sell' price."}},
 {condition: function() {return money > 300},
 log: function() {return "Good job, you now have more money than at start! Go ahead and try to buy more Lemonade stalls at low prices and sell them high. Lemonade produced by Lemonade stalls can be sold as well, click the row in your inventory to see the graph for that. You cannot influence resources' price but you should still sell them for as much as possible."}}
-]
+];
+
+/*  TODO: 
+help menu, context menu, upgrades, make price drop a lot on higher values
+
+*/
+
 function main() {
 	canvas = document.getElementById("graph");
 	graphctx = canvas.getContext("2d");
