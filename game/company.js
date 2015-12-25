@@ -120,7 +120,7 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 				money += this.cost * amt * sellValue;
 				this.owned -= amt;
 				this.recordTrans(false, amt);
-				statusLog(amt + "x '" + this.name + "' sold for " + (this.cost * amt * sellValue) + (amt > 1 ? (" (" + (this.cost * sellValue) + " each)") : ""));
+				statusLog(Math.round(amt * 10000)/10000 + "x '" + this.name + "' sold for " + (Math.round(this.cost * amt * sellValue * 10000) / 10000) + (amt > 1 ? (" (" + (Math.round(this.cost * sellValue * 1000) / 1000) + " each)") : ""));
 			}
 			else {
 				statusLog("You cannot sell that");
