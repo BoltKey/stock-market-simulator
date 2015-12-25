@@ -8,7 +8,7 @@ function draw() {
 	$("#moneyamt").html("<b>" + Math.floor(money) + "</b> (+" + Math.floor(totincome * 10000) / 10000 + ")");
 	for (i = 0; i < companies.length; ++i) {
 		var c = companies[i];
-		$("#costc" + i).html(c.cost + " / " + Math.round(c.cost * 0.8));
+		$("#costc" + i).html(c.cost + " / " + Math.round(c.cost * sellValue));
 		$("#costc" + i).css("color", getColorScale((c.cost - c.mincost * 2) / (c.mincost * 4)));
 		$("#ownedc" + i).html(c.owned + "/" + c.buylimit);
 		$("#growthc" + i).html(Math.round(c.tendence * 1000) / 1000);
@@ -16,10 +16,10 @@ function draw() {
 	}
 	for (i = 0; i < stock.length; ++i) {
 		var c = stock[i];
-		$("#costs" + i).html(Math.round(c.cost * 0.8 * 1000) / 1000);
+		$("#costs" + i).html(Math.round(c.cost * sellValue * 1000) / 1000);
 		$("#costs" + i).css("color", getColorScale((c.cost - c.mincost * 2) / (c.mincost * 4)));
 		$("#owneds" + i).html(Math.round(c.owned * 100) / 100);
-		$("#sells" + i).html(Math.round(c.owned * c.cost * 0.8 * 1000) / 1000);
+		$("#sells" + i).html(Math.round(c.owned * c.cost * sellValue * 1000) / 1000);
 	}
 	
 	//TODO: log with tutorial + info (revenue...)

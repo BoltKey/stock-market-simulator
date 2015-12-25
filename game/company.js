@@ -75,7 +75,7 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 		}
 	}
 	this.manualChange = function(up) {
-		this.tendence += (up ? 0.001 : -0.001);
+		this.tendence += (up ? 0.001 : -0.001) * (changeStyle + 1);
 		if (this.tendence > 1) {
 			this.tendence = 1;
 		}
@@ -117,10 +117,10 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 				amt = this.owned;
 			}
 			if (amt > 0) {
-				money += this.cost * amt * 0.8;
+				money += this.cost * amt * sellValue;
 				this.owned -= amt;
 				this.recordTrans(false, amt);
-				statusLog(amt + "x '" + this.name + "' sold for " + (this.cost * amt * 0.8) + (amt > 1 ? (" (" + (this.cost * 0.8) + " each)") : ""));
+				statusLog(amt + "x '" + this.name + "' sold for " + (this.cost * amt * sellValue) + (amt > 1 ? (" (" + (this.cost * sellValue) + " each)") : ""));
 			}
 			else {
 				statusLog("You cannot sell that");
@@ -166,11 +166,16 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 			c.fillStyle = "black";
 			c.fillText((max / 4) * (4 - i), 20, 20 + i * ((canvas.height - 20) / 4));
 		}
-		
+		var temp = c.font;
+		c.textAlign = "left";
+		c.font = "20px Arial";
+		c.fillText(this.name, 40, 30);
+		c.textAlign = "center";
+		c.font = temp;
 		c.fillRect(10, 10, 1, canvas.height - 20);
 		c.fillStyle = "#bb0000";
 		c.strokeStyle = "#660000";
-		for (var j = 1; j > 0.7; j -= 0.2) { 
+		for (var j = 1; j >= sellValue; j -= (1 - sellValue)) { 
 			i = Math.min(this.priceHistory.length, this.graphDensity);
 			var boughtindex = 0;
 			var switcher = this.startswitch;

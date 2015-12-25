@@ -21,8 +21,9 @@ foreach (glob("game/*.js") as $filename)
 	<div id="money" class="money">Money:</div>
 	<div id="moneyamt" class="moneyamt"></div>
 	<div id="statusLog" class="statusLog"></div>
-	<div id="inventory" class="inventory"></div>
-	<div id="companyList" class="companyList"></div>
+	<div id="tabselect" class="tabselect"></div>
+	
+	<div id="list" class="companyList"></div>
 	
 	<br>
 </div>

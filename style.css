@@ -33,12 +33,33 @@ body:hover {
 	background-color: brown;
 	margin: 10;
 }
+#tabselect {
+	width: 350;
+	margin-top: 10;
+	
+}
+#list {
+	width: 550;
+}
+#upgradetable {
+	width: 550;
+	text-align: center;
+	font-size: 30;
+	table-layout: fixed;
+	background-color: black;
+}
+#upgradetable td {
+	width: 48;
+}
 .statusmessage {
 	margin: 10;
 }
 #companylist {
 	height: 300px;
 	float: left;
+}
+#tabselecttable {
+	padding-bottom: 0 !important; 
 }
 #graph {
 	background-color: #DDE3FF;
@@ -54,7 +75,8 @@ body:hover {
 #inventory {
 	width: 40%;
 }
-#companytable, #inventorytable {
+#companytable, #inventorytable, #tabselecttable {
+	width: 100%;
 	text-align: center;
 	padding: 8px;
 	background-color: black;

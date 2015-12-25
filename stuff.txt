@@ -1,0 +1,17 @@
+UPGRADE IDEAS
+
+General
+	Ratio change
+		lvl 1: hold
+		lvl 2: single click
+		lvl 3: fixed
+	Tick duration
+		3 lvls
+	Sell value
+		80%, 85%, 90%, 95%, 100%
+	
+
+Company specific
+	Money earn
+	Limit
+	Unlock

@@ -17,12 +17,12 @@ t: "This is status log. All sold and bought items are logged here, also with som
 t: "All the available companies are listed here. You can buy and sell them and modify their price."},
 {cl: "growthc",
 t: "Growth rate is a number every price change is multiplied by. The higher it is, the more will price grow and vice versa. Use green arrow to raise it, use red arrow to lower it."},
+{cl: "moneyamt",
+t: "Money can be used to buy most companies and upgrades. You can gain it by selling companies and resources or letting your companies generate it for you."},
 {cl: "growthc",
 t: "Growth rate is a number every price change is multiplied by. The higher it is, the more will price grow and vice versa. Use green arrow to raise it, use red arrow to lower it."},
-{cl: "growthc",
-t: "Growth rate is a number every price change is multiplied by. The higher it is, the more will price grow and vice versa. Use green arrow to raise it, use red arrow to lower it."},
-{cl: "growthc",
-t: "Growth rate is a number every price change is multiplied by. The higher it is, the more will price grow and vice versa. Use green arrow to raise it, use red arrow to lower it."},
+{cl: "context",
+t: "Whenever you hover an element, info about that will show here."},
 {cl: "growthc",
 t: "Growth rate is a number every price change is multiplied by. The higher it is, the more will price grow and vice versa. Use green arrow to raise it, use red arrow to lower it."}
 
