@@ -16,12 +16,12 @@ foreach (glob("game/*.js") as $filename)
 </head>
 <body>
 <div id="game">
-	<canvas id="graph" width=620 height=300></canvas>
-	<div id="activecomp"></div>
-	<div id="money"></div>
-	<div id="statusLog"></div>
-	<div id="inventory"></div>
-	<div id="companyList"></div>
+	<canvas id="graph" class="graph" width=620 height=300></canvas>
+	<div id="context" class="context"></div>
+	<div id="money" class="money"></div>
+	<div id="statusLog" class="statusLog"></div>
+	<div id="inventory" class="inventory"></div>
+	<div id="companyList" class="companyList"></div>
 	
 	<br>
 </div>

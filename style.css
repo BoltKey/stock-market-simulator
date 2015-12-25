@@ -41,8 +41,12 @@ body:hover {
 	background-color: #DDE3FF;
 	float: right;
 }
-#activecomp {
+#context{
 	height: 200px;
+	width: 300;
+	background-color: #004400;
+	margin: 10;
+	padding: 10
 }
 #inventory {
 	width: 40%;
@@ -56,8 +60,21 @@ body:hover {
 .clickable {
 	background-color: #442200;
 }
+
 .clickable:hover {
 	background-color: #884400;
+}
+.clickable.green {
+	background-color: #006600;
+}
+.clickable.green:hover {
+	background-color: #00bb00;
+}
+.clickable.red {
+	background-color: #660000;
+}
+.clickable.red:hover {
+	background-color: #bb0000;
 }
 tr:hover {
 	background-color: #191919 !important;

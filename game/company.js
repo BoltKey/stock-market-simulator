@@ -2,6 +2,7 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 	this.tendence = 0.98;
 	this.name = name;
 	this.mincost = mincost;
+	this.softcap = mincost * 5;
 	this.precision = precision;
 	this.cost = Math.floor(this.mincost * (Math.random() + 3));
 	this.production = production;
@@ -36,9 +37,12 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 			}
 			if (this.ticks === this.speed) {
 				this.ticks = 0;
-				this.cost = ((1 - this.wildness / 100) + (Math.random() * (this.wildness / 50))) * this.tendence * this.cost;
-				this.cost += mincost / 5;
-				this.cost = Math.floor(this.cost * Math.pow(10, this.precision)) / Math.pow(10, this.precision);
+				this.cost *= ((1 - this.wildness / 100) + (Math.random() * (this.wildness / 50))) * this.tendence;  // magic
+				if (this.cost > this.softcap) {
+					this.cost -= ((this.cost - this.softcap) / this.mincost) * 0.4;  // on high price, gets lower
+				}
+				this.cost += this.mincost / 5;  // constant growth element
+				this.cost = Math.floor(this.cost * Math.pow(10, this.precision)) / Math.pow(10, this.precision);  // just rounding
 				
 				this.priceHistory.push(this.cost);
 				this.changeTend();
@@ -82,11 +86,12 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 	this.buy = function(amt) {
 		for (key of Object.keys(this.production)) {
 			if ($.grep(stock, function(a) {return a.name === key}).length === 0 && key !== "money") {
-				stock.push(new Company(key, 2, {}, 0, 1, 7, 2));
+				stock.push(new Company(key, 4, {}, 0, 1, 20, 2));
 				updateButtons();
 			}
 		}
 		if (amt === -1) {
+			//max
 			amt = Math.floor(money / this.cost);
 		}
 		if (this.owned + amt > this.buylimit) {
@@ -108,6 +113,7 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 		if (this.owned > 0) {
 			amt = Math.min(amt, this.owned);
 			if (amt === -1) {
+				// max
 				amt = this.owned;
 			}
 			if (amt > 0) {
@@ -146,8 +152,9 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 					"Owned: " + Math.floor(this.owned) + "<br>" + ((this.production.money !== undefined) ? (
 					"Max: " + this.buylimit + "<br>") : "") +
 					prodstring;
+		//$("#context").html(string);
 		this.graph();
-		$("#activecomp").html(string);
+		
 	}
 	this.graph = function() {
 		var c = graphctx;
