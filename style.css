@@ -22,6 +22,9 @@ body:hover {
 	padding: 20px;
 	background-color: #003300;
 }
+#moneyamt {
+	font-size: 40px;
+}
 #statusLog {
 	width: 390;
 	height: 300;

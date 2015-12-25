@@ -7,7 +7,7 @@ var graphctx;
 var canvas;
 
 /*  TODO: 
-help menu, context menu, upgrades, make price drop a lot on higher values, unlock content
+upgrades, make price drop a lot on higher values, unlock content, autosave
 graphics? 
 */
 function printCompany(c, sel) {

@@ -5,7 +5,7 @@ function draw() {
 	for (c of companies) {
 		totincome += c.production.money * c.owned;
 	}
-	$("#money").html("money: <b>" + Math.floor(money) + "</b> (+" + Math.floor(totincome * 10000) / 10000 + ")");
+	$("#moneyamt").html("<b>" + Math.floor(money) + "</b> (+" + Math.floor(totincome * 10000) / 10000 + ")");
 	for (i = 0; i < companies.length; ++i) {
 		var c = companies[i];
 		$("#costc" + i).html(c.cost + " / " + Math.round(c.cost * 0.8));
