@@ -10,19 +10,20 @@ var canvas;
 help menu, context menu, upgrades, make price drop a lot on higher values, unlock content
 graphics? 
 */
-function printCompany() {
+function printCompany(c, sel) {
 	var prodstring = "";
-	if (activeCompany.production.money !== undefined) {
+	if (c.production.money !== undefined) {
 		prodstring = "<b> Production</b><br>";
-		for (e of Object.keys(activeCompany.production)) {
-			prodstring += "&nbsp <b>" + e + ":</b> " + activeCompany.production[e] + " x " + activeCompany.owned + " = <b>" + activeCompany.production[e] * activeCompany.owned + "</b><br>";
+		for (e of Object.keys(c.production)) {
+			prodstring += "&nbsp <b>" + e + ":</b> " + c.production[e] + " x " + c.owned + " = <b>" + c.production[e] * c.owned + "</b><br>";
 		}
 	}
-	var string = "Selected comodity: <br><b>" + activeCompany.name + "</b><br>" +
-			"Price: " + activeCompany.cost + "<br>" + 
-			"Owned: " + Math.floor(activeCompany.owned) + "<br>" + ((activeCompany.production.money !== undefined) ? (
-			"Max: " + this.buylimit + "<br>") : "") +
-			prodstring;
+	var string = sel ? ("Selected comodity: <br><b>" + c.name + "</b><br>") : "" +
+			"Price: " + c.cost + "<br>" + 
+			"Owned: " + Math.floor(c.owned) + "<br>" + ((c.production.money !== undefined) ? (
+			"Max: " + c.buylimit + "<br>") : "") +
+			prodstring + 
+			(sel ? "" : "<br> <b>Click for graph!</b>");
 	$("#context").html(string);
 }
 function main() {
@@ -37,7 +38,7 @@ function main() {
 				})[0];
 			}
 			if (t === undefined) {
-				printCompany();
+				//printCompany(activeCompany);
 			}
 			else {
 				$("#context").html(t.t);
@@ -81,21 +82,21 @@ function tick(multi) {
 }
 
 function updateButtons() {
-	var stockstring = "<b>Inventory</b><br> <table id='inventorytable' border=1>" + 
+	var stockstring = "<b>Inventory</b><br> <table id='inventorytable' class='inventorytable' border=1>" + 
 	"<tr><td>Name <td>Sell value <td>Owned <td> Sell all for";
 	for (i = 0; i < stock.length; ++i) {
-		stockstring += "&nbsp <tr onclick=changeActive(true,\"" + i + "\")>" + 
+		stockstring += "&nbsp <tr onclick=changeActive(true,\"" + i + "\") onmouseenter='printCompany(stock[" + i + "], false)'>" + 
 		"<td>" + stock[i].name + 
 		"<td id='costs" + i + "'>" + Math.round(stock[i].cost * 100) / 100 + 
 		"<td id='owneds" + i + "'>" + (Math.floor(stock[i].owned * 10) / 10) + 
-		"<td id='sells" + i + "' class='clickable' onclick='stock[" + i + "].sell(-1)'>" + Math.round(((stock[i].cost * 100) / 100) * (Math.floor(stock[i].owned * 10) / 10));
+		"<td id='sells" + i + "' class='clickable green' onclick='stock[" + i + "].sell(-1)'>" + Math.round(((stock[i].cost * 100) / 100) * (Math.floor(stock[i].owned * 10) / 10));
 	}
 	$("#inventory").html(stockstring);
 	
 	var s = "<b>Companies<b><br><table id='companytable' class='companytable' border=1>" + 
 	"<tr><td>Name <td>Buy / Sell value <td>Owned <td colspan=3> Growth rate <td colspan=2> Buy <td colspan=2> Sell";
 	for (i = 0; i < companies.length; ++i) {
-		s += "<tr class='companyrow'id='companyrow" + i + "' onclick='changeActive(false, \"" + i + "\")'>" + 
+		s += "<tr class='companyrow'id='companyrow" + i + "' onmouseenter='printCompany(companies[" + i + "], false)'  onclick='changeActive(false, \"" + i + "\")'>" + 
 		"<td id='namec" + i + "' class='namec'>" + companies[i].name + 
 		"<td id='costc" + i + "' class='costc'>" + 
 		"<td id='ownedc" + i + "' class='ownedc'>" + 

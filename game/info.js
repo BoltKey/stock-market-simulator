@@ -16,6 +16,14 @@ t: "This is status log. All sold and bought items are logged here, also with som
 {cl: "companytable",
 t: "All the available companies are listed here. You can buy and sell them and modify their price."},
 {cl: "growthc",
+t: "Growth rate is a number every price change is multiplied by. The higher it is, the more will price grow and vice versa. Use green arrow to raise it, use red arrow to lower it."},
+{cl: "growthc",
+t: "Growth rate is a number every price change is multiplied by. The higher it is, the more will price grow and vice versa. Use green arrow to raise it, use red arrow to lower it."},
+{cl: "growthc",
+t: "Growth rate is a number every price change is multiplied by. The higher it is, the more will price grow and vice versa. Use green arrow to raise it, use red arrow to lower it."},
+{cl: "growthc",
+t: "Growth rate is a number every price change is multiplied by. The higher it is, the more will price grow and vice versa. Use green arrow to raise it, use red arrow to lower it."},
+{cl: "growthc",
 t: "Growth rate is a number every price change is multiplied by. The higher it is, the more will price grow and vice versa. Use green arrow to raise it, use red arrow to lower it."}
 
 ]
