@@ -33,7 +33,9 @@ function main() {
 				})[0];
 			}
 			if (t === undefined) {
+				if (activeCompany !== undefined) {
 				printCompany(activeCompany);
+				}
 			}
 			else {
 				$("#context").html(t.t);
@@ -69,7 +71,7 @@ function mainloop() {
 		tick(now - lasttick);
 		lasttick = now;
 	}
-	for (i = 0; i < conditionalEvents.length - 1; ++i) {
+	for (i = 0; i < conditionalEvents.length; ++i) {
 		if (conditionalEvents[i].condition() && eventsShown.indexOf(i) === -1) {
 			conditionalEvents[i].callback();
 			eventsShown.push(i);
@@ -77,12 +79,14 @@ function mainloop() {
 			
 		}
 	}
+	upgradeManager.updateStyle();
 }
 
 function tick(multi) {
 	for (c of companies.concat(stock)) {
 		c.tick(multi);
 	}
+	upgradeManager.updateStyle();
 	save();
 	draw();
 }
@@ -126,7 +130,7 @@ function updateButtons() {
 		case 2:
 			s = "<table id='upgradetable' class='upgradetable' border=1>";
 			for (var i = 0; i < upgradeManager.upgrades.length; ++i) {
-				s += "<td class='clickable " + upgradeManager.upgrades[i].style + "' onmouseenter='printUpgrade(upgradeManager.upgrades[" + i + "])' onclick='upgradeManager.buy(" + i + ")'>" + upgradeManager.upgrades[i].symbol;
+				s += "<td id='upgrade" + i + "' class='clickable " + upgradeManager.upgrades[i].style + "' onmouseenter='printUpgrade(upgradeManager.upgrades[" + i + "])' onclick='upgradeManager.buy(" + i + ")'>" + upgradeManager.upgrades[i].symbol;
 				if (i % 8 === 7) {
 					s += "<tr>";
 				}
@@ -174,7 +178,7 @@ function load() {
 			c[n] = a[n];
 		}
 	}
-	statusLog("Welcome back! You have been away for " + p(Math.floor(Date.now() / INTERVAL) - lasttick) + " seconds");
+	statusLog("Welcome back! You have been away for " + p(Math.floor(Date.now() / INTERVAL) - lasttick) + " ticks (" + p((Math.floor(Date.now() / INTERVAL) - lasttick) * (INTERVAL / 1000)) + " seconds)");
 }
 function wipe() {
 	localStorage.setItem("saveTime", null);

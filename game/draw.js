@@ -44,7 +44,7 @@ function printCompany(c, sel) {
 
 function printUpgrade(u) {
 	var s = u.tooltip() + "<br>";
-	s += "Cost: <b>" + u.cost + "</b><br>";
+	s += "Cost: <b>" + p(u.cost) + "</b><br>";
 	$("#context").html(s);
 }
 
