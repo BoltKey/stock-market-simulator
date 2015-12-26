@@ -1,5 +1,6 @@
 function draw() {
-	activeCompany.draw();
+	if (activeCompany !== undefined) 
+		activeCompany.draw();
 	
 	var totincome = 0;
 	for (c of companies) {
@@ -22,6 +23,29 @@ function draw() {
 		$("#sells" + i).html(p(c.owned * c.cost * sellValue));
 	}
 
+}
+
+function printCompany(c, sel) {
+	var prodstring = "";
+	if (c.production.money !== undefined) {
+		prodstring = "<b> Production</b><br>";
+		for (e of Object.keys(c.production)) {
+			prodstring += "&nbsp <b>" + e + ":</b> " + c.production[e] + " x " + c.owned + " = <b>" + c.production[e] * c.owned + "</b><br>";
+		}
+	}
+	var string = sel ? ("Selected comodity: <br><b>" + c.name + "</b><br>") : "" +
+			"Price: " + c.cost + "<br>" + 
+			"Owned: " + p(c.owned) + "<br>" + ((c.production.money !== undefined) ? (
+			"Max: " + p(c.buylimit) + "<br>") : "") +
+			prodstring + 
+			(sel ? "" : "<br> <b>Click for graph!</b>");
+	$("#context").html(string);
+}
+
+function printUpgrade(u) {
+	var s = u.tooltip() + "<br>";
+	s += "Cost: <b>" + u.cost + "</b><br>";
+	$("#context").html(s);
 }
 
 function getColorScale(scale) {

@@ -8,6 +8,7 @@ callback: function() {statusLog("Be careful with upgrades. If you buy some and r
 {condition: function() {return money > 300},
 callback: function() {statusLog("Good job, you now have more money than at start! Go ahead and try to buy more Lemonade stalls at low prices and sell them high. Lemonade produced by Lemonade stalls can be sold as well, click the row in your inventory to see the graph for that. You cannot influence resources' price but you should still sell them for as much as possible.")}}
 ];
+var eventsShown = [];
 
 
 var contextHelp = [

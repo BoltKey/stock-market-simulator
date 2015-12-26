@@ -65,7 +65,7 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 			this.tendence += (0.5 - Math.random()) * 0.015;
 			this.tendence -= (this.tendence - 1) / 30;
 			this.tendence += (0.98 - this.tendence) / 20;
-			this.tendence -= this.cost / (mincost * 5000);
+			this.tendence -= this.cost / (this.mincost * 5000);
 		}
 		if (this.tendence > 1) {
 			this.tendence = 1;

@@ -8,6 +8,10 @@ var canvas;
 var tabSelected = 0;
 var sellValue = 0.8;
 var changeStyle = 0;
+var miniUps = [];
+for (i = 0; i < 100; ++i) {
+	miniUps[i] = 0;
+}
 /*  TODO: 
 upgrades, make price drop a lot on higher values, unlock content, autosave
 graphics? 
@@ -16,27 +20,7 @@ function tabSelect(x) {
 	tabSelected = x;
 	updateButtons();
 }
-function printCompany(c, sel) {
-	var prodstring = "";
-	if (c.production.money !== undefined) {
-		prodstring = "<b> Production</b><br>";
-		for (e of Object.keys(c.production)) {
-			prodstring += "&nbsp <b>" + e + ":</b> " + c.production[e] + " x " + c.owned + " = <b>" + c.production[e] * c.owned + "</b><br>";
-		}
-	}
-	var string = sel ? ("Selected comodity: <br><b>" + c.name + "</b><br>") : "" +
-			"Price: " + c.cost + "<br>" + 
-			"Owned: " + p(c.owned) + "<br>" + ((c.production.money !== undefined) ? (
-			"Max: " + p(c.buylimit) + "<br>") : "") +
-			prodstring + 
-			(sel ? "" : "<br> <b>Click for graph!</b>");
-	$("#context").html(string);
-}
-function printUpgrade(u) {
-	var s = u.tooltip() + "<br>";
-	s += "Cost: <b>" + u.cost + "</b><br>";
-	$("#context").html(s);
-}
+
 function main() {
 	canvas = document.getElementById("graph");
 	graphctx = canvas.getContext("2d");
@@ -49,7 +33,7 @@ function main() {
 				})[0];
 			}
 			if (t === undefined) {
-				//printCompany(activeCompany);
+				printCompany(activeCompany);
 			}
 			else {
 				$("#context").html(t.t);
@@ -57,17 +41,25 @@ function main() {
 		}
 		}, true);
 		
-	companies.push(new Company("Lemonade stall", 10, {money: 0.01, lemonade: 0.002}, 15, 1, 10, 0, "start"));
+	
 	/*companies.push(new Company("Local woodworks", 100, {money: 0.1, wood: 0.008}, 20, 2, 6, 0));
 	companies.push(new Company("Bank", 900, {money: 1}, 5, 10, 1, -1));
 	companies.push(new Company("Lemonade Co.", 5000, {money: 10, lemonade: 0.5}, 30, 20, 3, -2));*/
-	activeCompany = companies[0];
-	upgradeManager = new UpgradeManager();
+	//activeCompany = companies[0];
+	
 	lasttick = Math.floor(Date.now() / INTERVAL);
-	statusLog("HEY! OVER HERE! Hello and welcome to Stock Market Simulator. This is status log, various messages and tutorial will show up here. Hover various elements to get help regarding them in the other corner of the screen");
-	statusLog("Start off by buying some Lemonade stalls under Companies tab. They will generate some cash and lemonade, but more importantly, you can sell them for higher price than for which you bought them.");
+	if (localStorage.getItem("saveTime") === "null") {
+		companies.push(new Company("Lemonade stall", 10, {money: 0.01, lemonade: 0.002}, 15, 1, 10, 0, "start"));
+		statusLog("HEY! OVER HERE! Hello and welcome to Stock Market Simulator. This is status log, various messages and tutorial will show up here. Hover various elements to get help regarding them in the other corner of the screen");
+		statusLog("Start off by buying some Lemonade stalls under Companies tab. They will generate some cash and lemonade, but more importantly, you can sell them for higher price than for which you bought them.");
+		
+	}
+	else {
+		load();
+	}
+	upgradeManager = new UpgradeManager();
 	updateButtons();
-	tick();
+	draw();
 	mainloop();
 }
 function mainloop() {
@@ -77,11 +69,12 @@ function mainloop() {
 		tick(now - lasttick);
 		lasttick = now;
 	}
-	for (i = 0; i < conditionalEvents.length; ++i) {
-		if (conditionalEvents[i].condition()) {
+	for (i = 0; i < conditionalEvents.length - 1; ++i) {
+		if (conditionalEvents[i].condition() && eventsShown.indexOf(i) === -1) {
 			conditionalEvents[i].callback();
-			conditionalEvents.splice(i, 1);
+			eventsShown.push(i);
 			--i;
+			
 		}
 	}
 }
@@ -90,6 +83,7 @@ function tick(multi) {
 	for (c of companies.concat(stock)) {
 		c.tick(multi);
 	}
+	save();
 	draw();
 }
 
@@ -153,4 +147,37 @@ function changeActive(stoc, id) {
 		$("#companyrow" + i).css("background-color", ((i == id && !stoc) ? "#333333" : "#000000") );
 	}
 	draw();
+}
+
+function save() {
+	localStorage.setItem("saveTime", JSON.stringify(lasttick));
+	localStorage.setItem("saveComp", JSON.stringify(companies));
+	localStorage.setItem("saveStock", JSON.stringify(stock));
+	localStorage.setItem("saveEvents", JSON.stringify(eventsShown));
+	localStorage.setItem("saveMoney", money);
+	localStorage.setItem("saveUps", JSON.stringify(miniUps));
+}
+function load() {
+	lasttick = JSON.parse(localStorage.getItem("saveTime"));
+	eventsShown = JSON.parse(localStorage.getItem("saveEvents"));
+	companies = JSON.parse(localStorage.getItem("saveComp"));
+	money = localStorage.getItem("saveMoney") * 1;
+	stock = JSON.parse(localStorage.getItem("saveStock"));
+	miniUps = JSON.parse(localStorage.getItem("saveUps"));
+	// I don't know how to do this sort of stuff, so I am just going to copy missing methods from new Company object
+	for (c of companies.concat(stock)) {
+		a = new Company();
+		m = Object.getOwnPropertyNames(a).filter(function (p) {
+			return typeof a[p] === 'function';
+		});
+		for (n of m) {
+			c[n] = a[n];
+		}
+	}
+	statusLog("Welcome back! You have been away for " + p(Math.floor(Date.now() / INTERVAL) - lasttick) + " seconds");
+}
+function wipe() {
+	localStorage.setItem("saveTime", null);
+	localStorage.setItem("saveComp", null);
+	localStorage.setItem("saveEvents", null);
 }

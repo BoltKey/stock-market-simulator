@@ -31,11 +31,18 @@ UpgradeManager = function() {
 		tooltip: function() {return "<b>Unlock Bank</b><br> It's time to step up your game. Bank produces considerable amount of money by itself.";}
 		},
 		];
-	for (u of this.upgrades) {
-		u.style = "red";
-		u.bought = false;
-	}
 	this.upgrades.sort(function(a, b) {return a.cost > b.cost});
+	for (var i = 0; i < this.upgrades.length; ++i) {
+		if (miniUps[i] === 1) {
+			this.upgrades[i].style = "green";
+			this.upgrades[i].f();
+			this.upgrades[i].bought = true;
+		}
+		else {
+			this.upgrades[i].style = "red";
+			this.upgrades[i].bought = false;
+		}
+	}
 	this.buy = function(id) {
 		if (!this.upgrades[id].bought && this.upgrades[id].cost <= money) {
 			money -= this.upgrades[id].cost;
@@ -43,6 +50,7 @@ UpgradeManager = function() {
 			this.upgrades[id].f();
 			printUpgrade(this.upgrades[id]);
 			this.upgrades[id].style = "green";
+			miniUps[id] = 1;
 		}
 		updateButtons();
 	}
