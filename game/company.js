@@ -101,7 +101,7 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 			money -= this.cost * amt;
 			this.owned += amt;
 			this.recordTrans(true, amt);
-			statusLog(amt + "x '" + this.name + "' bought for " + (this.cost * amt) + (amt > 1 ? (" (" + this.cost + " each)") : ""));
+			statusLog(p(amt) + "x '" + this.name + "' bought for " + p(this.cost * amt) + (amt > 1 ? (" (" + p(this.cost) + " each)") : ""));
 		}
 		else {
 			statusLog("You cannot buy that");
@@ -120,7 +120,7 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 				money += this.cost * amt * sellValue;
 				this.owned -= amt;
 				this.recordTrans(false, amt);
-				statusLog(Math.round(amt * 10000)/10000 + "x '" + this.name + "' sold for " + (Math.round(this.cost * amt * sellValue * 10000) / 10000) + (amt > 1 ? (" (" + (Math.round(this.cost * sellValue * 1000) / 1000) + " each)") : ""));
+				statusLog(p(amt) + "x '" + this.name + "' sold for " + p(this.cost * amt * sellValue) + (amt > 1 ? (" (" + p(this.cost * sellValue) + " each)") : ""));
 			}
 			else {
 				statusLog("You cannot sell that");
@@ -148,9 +148,9 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 			}
 		}
 		var string = this.name + "<br>" +
-					"Price: " + this.cost + "<br>" + 
-					"Owned: " + Math.floor(this.owned) + "<br>" + ((this.production.money !== undefined) ? (
-					"Max: " + this.buylimit + "<br>") : "") +
+					"Price: " + p(this.cost) + "<br>" + 
+					"Owned: " + p(this.owned) + "<br>" + ((this.production.money !== undefined) ? (
+					"Max: " + p(this.buylimit) + "<br>") : "") +
 					prodstring;
 		//$("#context").html(string);
 		this.graph();
@@ -188,7 +188,7 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 					if (i === b.ago) {
 						if ((b.bought && j === 1) || (!b.bought && j < 1)) {
 							c.fillRect(x - 2, y - 2, 4, 4);
-							c.fillText(b.amt > 1 ? b.amt : "", x, y + (switcher ? -5 : 15));
+							c.fillText(b.amt !== 1 ? p(b.amt) : "", x, y + (switcher ? -5 : 15));
 						}
 						switcher = !switcher;
 						++boughtindex;

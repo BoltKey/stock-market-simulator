@@ -26,8 +26,8 @@ function printCompany(c, sel) {
 	}
 	var string = sel ? ("Selected comodity: <br><b>" + c.name + "</b><br>") : "" +
 			"Price: " + c.cost + "<br>" + 
-			"Owned: " + Math.floor(c.owned) + "<br>" + ((c.production.money !== undefined) ? (
-			"Max: " + c.buylimit + "<br>") : "") +
+			"Owned: " + p(c.owned) + "<br>" + ((c.production.money !== undefined) ? (
+			"Max: " + p(c.buylimit) + "<br>") : "") +
 			prodstring + 
 			(sel ? "" : "<br> <b>Click for graph!</b>");
 	$("#context").html(string);
@@ -107,9 +107,9 @@ function updateButtons() {
 			for (var i = 0; i < stock.length; ++i) {
 				s += "&nbsp <tr onclick=changeActive(true,\"" + i + "\") onmouseenter='printCompany(stock[" + i + "], false)'>" + 
 				"<td>" + stock[i].name + 
-				"<td id='costs" + i + "'>" + Math.round(stock[i].cost * 100) / 100 + 
-				"<td id='owneds" + i + "'>" + (Math.floor(stock[i].owned * 10) / 10) + 
-				"<td id='sells" + i + "' class='clickable green' onclick='stock[" + i + "].sell(-1)'>" + Math.round(((stock[i].cost * 100) / 100) * (Math.floor(stock[i].owned * 10) / 10));
+				"<td id='costs" + i + "'>" + p(stock[i].cost) + 
+				"<td id='owneds" + i + "'>" + p(stock[i].owned) + 
+				"<td id='sells" + i + "' class='clickable green' onclick='stock[" + i + "].sell(-1)'>" + p((stock[i].cost) * (p(stock[i].owned)));
 			}
 			break;
 		case 0: 
