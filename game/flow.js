@@ -78,7 +78,6 @@ function mainloop() {
 			
 		}
 	}
-	upgradeManager.updateStyle();
 }
 
 function tick(multi) {
@@ -159,11 +158,13 @@ function save() {
 	localStorage.setItem("saveEvents", JSON.stringify(eventsShown));
 	localStorage.setItem("saveMoney", money);
 	localStorage.setItem("saveUps", JSON.stringify(miniUps));
+	localStorage.setItem("saveVis", upgradeManager.visible);
 }
 function load() {
 	companies = JSON.parse(localStorage.getItem("saveComp"));
 	miniUps = JSON.parse(localStorage.getItem("saveUps"));
 	upgradeManager = new UpgradeManager();
+	upgradeManager.visible = localStorage.getItem("saveVis");
 	lasttick = JSON.parse(localStorage.getItem("saveTime"));
 	console.log("from save: " + lasttick)
 	console.log("now:       " + Math.floor(Date.now() / INTERVAL));

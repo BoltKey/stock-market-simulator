@@ -24,6 +24,13 @@ UpgradeManager = function() {
 		cost: 400,
 		tooltip: function() {return "<b>Unlock Local woodworks</b><br> A bit more expensive, a bit more earning, Local woodworks is perfect as the second company of your empire.";}
 		},
+		{f: function() {$.grep(companies, function(a) {return a.name === "Local woodworks"})[0].buylimit += 80; draw();}, 
+		c: function() {return $.grep(companies, function(a) {return a.name === "Local woodworks"}).length === 1},
+		symbol: "木", 
+		repeat: false,
+		cost: 40000,
+		tooltip: function() {return "<b>Expand forests</b><br> Increases max woodworks by 80.";}
+		},
 		{f: function() {companies[0].buylimit += 15; draw();}, 
 		symbol: "🍋", 
 		cost: 750,
@@ -71,7 +78,7 @@ UpgradeManager = function() {
 		},
 		symbol: "༜", 
 		cost: 900000,
-		repeat: true,
+		repeat: false,
 		tooltip: function() {return "<b>Grow your lemonade empire</b><br>Your lemonade is going viral. Increase limit of lemonade stalls by 100 and Lemonade Co. by 30.";}
 		},
 		{f: function() {sellValue += 0.05; draw();}, 
@@ -80,8 +87,68 @@ UpgradeManager = function() {
 		repeat: true,
 		tooltip: function() {return "<b>Bags with dollar symbol</b><br> They say having these makes people give you money for free. Further improve sell value by 5%";}
 		},
+		{f: function() {companies.push(new Company("Golf courts", 500000, {money: 1500}, 30, 150, 3, -4)); draw();}, 
+		symbol: "⛳", 
+		cost: 3200000,
+		repeat: false,
+		tooltip: function() {return "<b>Unlock Golf courts</b><br>Not really useful for anything really, but people tend to pay a lot for it.";}
+		},
+		{f: function() {INTERVAL = 600; lasttick = Math.floor(Date.now() / INTERVAL); draw();}, 
+		symbol: "🐚", 
+		cost: 2000000,
+		repeat: false,
+		tooltip: function() {return "<b>Time warp</b><br>Reduce interval between ticks to flopping 0.6 seconds.";}
+		},
+		{f: function() {companies.push(new Company("Hard dos", 3600000, {money: 30000}, 20, 240, 6, -5)); draw()},
+		symbol: "🏢",
+		cost: 85000000,
+		repeat: false,
+		tooltip: function() {return "<b>Unlock Hard Dos</b><br>A huge and very expensive mall somewhere in Europe. Gains money.";}
+		},
+		{f: function() {companies.push(new Company("Frod", 40000000, {money: 500000, cars: 100}, 20, 240, 6, -5)); draw()},
+		symbol: "F",
+		cost: 330000000,
+		repeat: false,
+		tooltip: function() {return "<b>Unlock Frod</b><br>Produces money. And cars.";}
+		},
+		{f: function() {companies.push(new Company("Spinoegg", 600000000, {money: 2000000, oil: 300000}, 20, 240, 6, -5)); draw()},
+		symbol: "中",
+		cost: 4500000000,
+		repeat: false,
+		tooltip: function() {return "<b>Unlock Spinoegg</b><br>The world's largest oil enterprise. Produces a lot of oil.";}
+		},
+		{f: function() {companies.push(new Company("NACA", 5000000000, {money: 70000000}, 20, 480, 4, -5)); draw()},
+		symbol: "🌛",
+		cost: 33000000000,
+		repeat: false,
+		tooltip: function() {return "<b>Unlock NACA</b><br>National Association for Cosmonauts and Astronauts earns a lot of money.";}
+		},
+		{f: function() {companies.push(new Company("le Goog", 80000000000, {money: 300000000}, 40, 600, 4, -5)); draw()},
+		symbol: "G",
+		cost: 860000000000,
+		repeat: false,
+		tooltip: function() {return "<b>Unlock le Goog</b><br>A huge french company which started of as a web search engine.";}
+		},
+		{f: function() {companies.push(new Company("Horse cars inc.", 600000000000, {money: 1000000000, cars: 100000}, 40, 600, 4, -5)); draw()},
+		symbol: "🐎",
+		cost: 4500000000000,
+		repeat: false,
+		tooltip: function() {return "<b>Unlock Horse cars inc.</b><br>Some call this company l'Amghorbini, but they are really called just Horse cars.";}
+		},
+		{f: function() {INTERVAL = 300; lasttick = Math.floor(Date.now() / INTERVAL); draw()},
+		symbol: "📞",
+		cost: 38000000000,
+		repeat: true,
+		tooltip: function() {return "<b>Buy a phone box</b><br>Bend the time and space itself with the latest technological tweaks to phone boxes. Halve the interval between ticks to unbelievable 0.3 seconds.";}
+		},
+		{f: function() {money += 30; draw();}, 
+		symbol: "?", 
+		cost: 10000000000000000,
+		repeat: true,
+		tooltip: function() {return "<b>Placeholder</b><br> Placeholder";}
+		},
 		];
-	this.visible = 3;
+	this.visible = this.upgrades.length - 1;//3;
 	this.upgrades.sort(function(a, b) {return a.cost - b.cost});
 	for (var i = 0; i < this.upgrades.length; ++i) {
 		if (miniUps[i] === 1) {
@@ -126,7 +193,7 @@ UpgradeManager = function() {
 				}
 			}
 		}
-		if (this.upgrades[Math.min(this.visible, this.upgrades.length - 1)].cost < money * 3) {
+		if (this.upgrades[Math.min(this.visible, this.upgrades.length - 1)].cost < money * 10) {
 			++this.visible;
 			updateButtons();
 		}

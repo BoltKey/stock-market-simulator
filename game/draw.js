@@ -30,11 +30,11 @@ function printCompany(c, sel) {
 	if (c.production.money !== undefined) {
 		prodstring = "<b> Production</b><br>";
 		for (e of Object.keys(c.production)) {
-			prodstring += "&nbsp <b>" + e + ":</b> " + c.production[e] + " x " + c.owned + " = <b>" + c.production[e] * c.owned + "</b><br>";
+			prodstring += "&nbsp <b>" + e + ":</b> " + p(c.production[e]) + " x " + c.owned + " = <b>" + c.production[e] * c.owned + "</b><br>";
 		}
 	}
 	var string = sel ? ("Selected comodity: <br><b>" + c.name + "</b><br>") : "" +
-			"Price: " + c.cost + "<br>" + 
+			"Price: " + p(c.cost) + "<br>" + 
 			"Owned: " + p(c.owned) + "<br>" + ((c.production.money !== undefined) ? (
 			"Max: " + p(c.buylimit) + "<br>") : "") +
 			prodstring + 

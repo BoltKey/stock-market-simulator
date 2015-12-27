@@ -86,7 +86,8 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 	this.buy = function(amt) {
 		for (key of Object.keys(this.production)) {
 			if ($.grep(stock, function(a) {return a.name === key}).length === 0 && key !== "money") {
-				stock.push(new Company(key, 4, {}, 0, 1, 20, 2));
+				b = (key === "cars");
+				stock.push(new Company(key, (b ? 200 : 4), {}, 0, 30, 10, -1));
 				updateButtons();
 			}
 		}
@@ -164,7 +165,7 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 			c.fillStyle = "#22ee22";
 			c.fillRect(10, 10 + i * ((canvas.height - 20) / 4), canvas.width - 20, 1);
 			c.fillStyle = "black";
-			c.fillText((max / 4) * (4 - i), 20, 20 + i * ((canvas.height - 20) / 4));
+			c.fillText(p((max / 4) * (4 - i)), 20, 20 + i * ((canvas.height - 20) / 4));
 		}
 		var temp = c.font;
 		c.textAlign = "left";

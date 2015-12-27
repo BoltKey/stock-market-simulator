@@ -40,6 +40,8 @@ body:hover {
 }
 #list {
 	width: 550;
+	max-height: 300;
+	overflow-y: auto;
 }
 #upgradetable {
 	width: 550;
@@ -81,6 +83,7 @@ body:hover {
 	padding: 8px;
 	background-color: black;
 	color: white;
+	font-size: 12;
 }
 .clickable {
 	background-color: #442200;
