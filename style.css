@@ -107,6 +107,12 @@ body:hover {
 .clickable.yellow:hover {
 	background-color: #bbbb00;
 }
+.clickable.gray {
+	background-color: #666666;
+}
+.clickable.gray:hover {
+	background-color: #bbbbbb;
+}
 tr:hover {
 	background-color: #191919 !important;
 }
