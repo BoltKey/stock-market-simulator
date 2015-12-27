@@ -64,9 +64,14 @@ function p(number) {
 	number = Math.floor(number * 1000) / 1000;
 	var zeros = Math.floor(Math.log(number) / Math.log(10));
 	var preps = ["", "k", "M", "G", "T", "E", "Z"];
-	prep = preps[Math.floor(zeros / 3)];
+	prepindex = Math.floor(zeros / 3);
 	number = number / (Math.pow(10, Math.floor(zeros / 3) * 3));
 	number = Math.floor(number * 10) / 10;
+	if (number === 1000) {
+		++prepindex;
+		number = 1;
+	}
+	prep = preps[prepindex];
 	number = number + prep;
 	return number;
 }

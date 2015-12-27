@@ -148,7 +148,7 @@ UpgradeManager = function() {
 		tooltip: function() {return "<b>Placeholder</b><br> Placeholder";}
 		},
 		];
-	this.visible = this.upgrades.length - 1;//3;
+	this.visible = 3;
 	this.upgrades.sort(function(a, b) {return a.cost - b.cost});
 	for (var i = 0; i < this.upgrades.length; ++i) {
 		if (miniUps[i] === 1) {
