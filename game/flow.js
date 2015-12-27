@@ -47,7 +47,7 @@ function main() {
 	//activeCompany = companies[0];
 	
 	
-	if (localStorage.getItem("saveTime") === null) {
+	if (localStorage.getItem("saveTime") === null || localStorage.getItem("saveTime") === "null") {
 		companies.push(new Company("Lemonade stall", 10, {money: 0.01, lemonade: 0.002}, 15, 1, 10, 0, "start"));
 		statusLog("HEY! OVER HERE! Hello and welcome to Stock Market Simulator. This is status log, various messages and tutorial will show up here. Hover various elements to get help regarding them in the other corner of the screen");
 		statusLog("Start off by buying some Lemonade stalls under Companies tab. They will generate some cash and lemonade, but more importantly, you can sell them for higher price than for which you bought them.");
@@ -128,7 +128,7 @@ function updateButtons() {
 			break;
 		case 2:
 			s = "<table id='upgradetable' class='upgradetable' border=1>";
-			for (var i = 0; i < upgradeManager.upgrades.length; ++i) {
+			for (var i = 0; i < upgradeManager.visible; ++i) {
 				s += "<td id='upgrade" + i + "' class='clickable " + upgradeManager.upgrades[i].style + "' onmouseenter='printUpgrade(upgradeManager.upgrades[" + i + "])' onclick='upgradeManager.buy(" + i + ")'>" + upgradeManager.upgrades[i].symbol;
 				if (i % 8 === 7) {
 					s += "<tr>";

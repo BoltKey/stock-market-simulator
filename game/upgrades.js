@@ -22,7 +22,7 @@ UpgradeManager = function() {
 		symbol: "⛏", 
 		repeat: false,
 		cost: 400,
-		tooltip: function() {return "<b>Unlock Local woodworks</b><br> A bit more expensive, a bit more earning, Local woodworks is perfect as the second company.";}
+		tooltip: function() {return "<b>Unlock Local woodworks</b><br> A bit more expensive, a bit more earning, Local woodworks is perfect as the second company of your empire.";}
 		},
 		{f: function() {companies[0].buylimit += 15; draw();}, 
 		symbol: "🍋", 
@@ -61,6 +61,7 @@ UpgradeManager = function() {
 		tooltip: function() {return "<b>Personal consultant</b><br> Take advice from your well-educated consultant once in a while and sell everything 5% better.";}
 		},
 		];
+	this.visible = 3;
 	this.upgrades.sort(function(a, b) {return a.cost > b.cost});
 	for (var i = 0; i < this.upgrades.length; ++i) {
 		if (miniUps[i] === 1) {
@@ -89,6 +90,10 @@ UpgradeManager = function() {
 					e.addClass("red");
 				}
 			}
+		}
+		if (this.upgrades[this.visible].cost < money * 3) {
+			++this.visible;
+			updateButtons();
 		}
 	}
 	this.buy = function(id) {

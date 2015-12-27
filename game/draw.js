@@ -10,7 +10,7 @@ function draw() {
 	for (i = 0; i < companies.length; ++i) {
 		var c = companies[i];
 		$("#costc" + i).html(p(c.cost) + " / " + p(c.cost * sellValue));
-		$("#costc" + i).css("color", getColorScale((c.cost - c.mincost * 2) / (c.mincost * 4)));
+		$("#costc" + i).css("color", getColorScale((c.cost - c.mincost * 2) / (c.mincost * 6)));
 		$("#ownedc" + i).html(p(c.owned) + "/" + p(c.buylimit));
 		$("#growthc" + i).html(p(c.tendence));
 		$("#growthc" + i).css("color", getColorScale((c.tendence - 0.95) * 18));
