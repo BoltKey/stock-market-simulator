@@ -12,10 +12,7 @@ var miniUps = [];
 for (i = 0; i < 100; ++i) {
 	miniUps[i] = 0;
 }
-/*  TODO: 
-upgrades, make price drop a lot on higher values, unlock content, autosave
-graphics? 
-*/
+
 function tabSelect(x) {
 	tabSelected = x;
 	updateButtons();
@@ -34,7 +31,7 @@ function main() {
 			}
 			if (t === undefined) {
 				if (activeCompany !== undefined) {
-				printCompany(activeCompany);
+				//printCompany(activeCompany);
 				}
 			}
 			else {
@@ -49,17 +46,19 @@ function main() {
 	companies.push(new Company("Lemonade Co.", 5000, {money: 10, lemonade: 0.5}, 30, 20, 3, -2));*/
 	//activeCompany = companies[0];
 	
-	lasttick = Math.floor(Date.now() / INTERVAL);
-	if (localStorage.getItem("saveTime") === "null") {
+	
+	if (localStorage.getItem("saveTime") === null) {
 		companies.push(new Company("Lemonade stall", 10, {money: 0.01, lemonade: 0.002}, 15, 1, 10, 0, "start"));
 		statusLog("HEY! OVER HERE! Hello and welcome to Stock Market Simulator. This is status log, various messages and tutorial will show up here. Hover various elements to get help regarding them in the other corner of the screen");
 		statusLog("Start off by buying some Lemonade stalls under Companies tab. They will generate some cash and lemonade, but more importantly, you can sell them for higher price than for which you bought them.");
-		
+		upgradeManager = new UpgradeManager();
+		lasttick = Math.floor(Date.now() / INTERVAL);
 	}
 	else {
 		load();
 	}
-	upgradeManager = new UpgradeManager();
+	
+	
 	updateButtons();
 	draw();
 	mainloop();
@@ -162,12 +161,18 @@ function save() {
 	localStorage.setItem("saveUps", JSON.stringify(miniUps));
 }
 function load() {
-	lasttick = JSON.parse(localStorage.getItem("saveTime"));
-	eventsShown = JSON.parse(localStorage.getItem("saveEvents"));
 	companies = JSON.parse(localStorage.getItem("saveComp"));
+	miniUps = JSON.parse(localStorage.getItem("saveUps"));
+	upgradeManager = new UpgradeManager();
+	lasttick = JSON.parse(localStorage.getItem("saveTime"));
+	console.log("from save: " + lasttick)
+	console.log("now:       " + Math.floor(Date.now() / INTERVAL));
+	eventsShown = JSON.parse(localStorage.getItem("saveEvents"));
+	
 	money = localStorage.getItem("saveMoney") * 1;
 	stock = JSON.parse(localStorage.getItem("saveStock"));
-	miniUps = JSON.parse(localStorage.getItem("saveUps"));
+	
+	statusLog("Welcome back! You have been away for " + p(Math.floor(Date.now() / INTERVAL) - lasttick) + " ticks (" + p((Math.floor(Date.now() / INTERVAL) - lasttick) * (INTERVAL / 1000)) + " seconds)");
 	// I don't know how to do this sort of stuff, so I am just going to copy missing methods from new Company object
 	for (c of companies.concat(stock)) {
 		a = new Company();
@@ -178,7 +183,7 @@ function load() {
 			c[n] = a[n];
 		}
 	}
-	statusLog("Welcome back! You have been away for " + p(Math.floor(Date.now() / INTERVAL) - lasttick) + " ticks (" + p((Math.floor(Date.now() / INTERVAL) - lasttick) * (INTERVAL / 1000)) + " seconds)");
+	
 }
 function wipe() {
 	localStorage.setItem("saveTime", null);

@@ -26,7 +26,7 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 			++this.ticks;
 			if (this.owned > 0) {
 				for (k of Object.keys(this.production)) {
-					var t = this.production[k] * this.owned
+					var t = this.production[k] * this.owned;
 					if (k === "money") 
 						money += t;
 					else {
@@ -39,7 +39,7 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 				this.ticks = 0;
 				this.cost *= ((1 - this.wildness / 100) + (Math.random() * (this.wildness / 50))) * this.tendence;  // magic
 				if (this.cost > this.softcap) {
-					this.cost -= ((this.cost - this.softcap) / this.mincost) * 0.4;  // on high price, gets lower
+					this.cost -= (this.cost - this.softcap) * 0.05;  // on high price, gets lower
 				}
 				this.cost += this.mincost / 5;  // constant growth element
 				this.cost = Math.floor(this.cost * Math.pow(10, this.precision)) / Math.pow(10, this.precision);  // just rounding

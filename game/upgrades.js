@@ -48,11 +48,17 @@ UpgradeManager = function() {
 		repeat: true,
 		tooltip: function() {return "<b>Market dominance</b><br> Change growth ratio to the edge value with a single click!";}
 		},
-		{f: function() {sellValue += 0.05; draw();}, 
+		{f: function() {companies.push(new Company("Lemonade Co.", 5000, {money: 10, lemonade: 0.5}, 30, 20, 3, -2)); draw();}, 
 		symbol: "🏭", 
 		cost: 6000,
 		repeat: false,
 		tooltip: function() {return "<b>Unlock Lemonade Co.</b><br> Lemonade Co. produces quite a lot of money and a lot of lemonade. Also, costs a lot.";}
+		},
+		{f: function() {sellValue += 0.05; draw();}, 
+		symbol: "🐧", 
+		cost: 120000,
+		repeat: false,
+		tooltip: function() {return "<b>Personal consultant</b><br> Take advice from your well-educated consultant once in a while and sell everything 5% better.";}
 		},
 		];
 	this.upgrades.sort(function(a, b) {return a.cost > b.cost});
