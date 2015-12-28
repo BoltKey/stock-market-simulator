@@ -26,7 +26,7 @@ body:hover {
 	font-size: 40px;
 }
 #statusLog {
-	width: 390;
+	width: 330;
 	height: 300;
 	overflow-y: auto;
 	float: right;
@@ -39,9 +39,12 @@ body:hover {
 	
 }
 #list {
-	width: 550;
+	width: 600;
 	max-height: 300;
 	overflow-y: auto;
+}
+#listcanvas {
+	background-color: black;
 }
 #upgradetable {
 	width: 550;

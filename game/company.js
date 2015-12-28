@@ -22,6 +22,11 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 	this.speed = speed;
 	this.priceHistory = [this.cost];
 	this.tick = function(multi) {
+		if (this.name === "lemonade" || this.name === "wood") {
+			this.speed = 1;
+			this.wildness = 30;
+			this.precision = 2;
+		}
 		for (var i = 0; i < multi; ++i) {
 			++this.ticks;
 			if (this.owned > 0) {
@@ -35,14 +40,18 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 					}
 				}
 			}
-			if (this.ticks === this.speed) {
+			if (this.ticks >= this.speed) {
 				this.ticks = 0;
 				this.cost *= ((1 - this.wildness / 100) + (Math.random() * (this.wildness / 50))) * this.tendence;  // magic
 				if (this.cost > this.softcap) {
 					this.cost -= (this.cost - this.softcap) * 0.05;  // on high price, gets lower
 				}
 				this.cost += this.mincost / 5;  // constant growth element
-				this.cost = Math.floor(this.cost * Math.pow(10, this.precision)) / Math.pow(10, this.precision);  // just rounding
+				this.cost = Math.floor(this.cost * Math.pow(10, this.precision)) / Math.pow(10, this.precision); 
+				// just rounding
+				if (this.cost < this.mincost) {
+					this.cost = Math.floor(this.mincost * (Math.random() + 3));
+				}
 				
 				this.priceHistory.push(this.cost);
 				this.changeTend();
@@ -87,7 +96,7 @@ function Company(name, mincost, production, buylimit, speed, wildness, precision
 		for (key of Object.keys(this.production)) {
 			if ($.grep(stock, function(a) {return a.name === key}).length === 0 && key !== "money") {
 				b = (key === "cars");
-				stock.push(new Company(key, (b ? 200 : 4), {}, 0, 30, 10, -1));
+				stock.push(new Company(key, (b ? 200 : 4), {}, 0, (b ? 30 : 1), (b ? 10 : 1), (b ? -1 : 2)));
 				updateButtons();
 			}
 		}

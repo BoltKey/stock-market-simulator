@@ -1,0 +1,48 @@
+
+<head>
+<meta charset="utf-8" />
+<title>Stock Market Simulator</title>
+<link rel="shortcut icon" href="/boltlogo.png">
+<link rel="stylesheet" type="text/css" href="style.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="jscookie.js"></script>
+<script type="text/javascript" src=game/company.js></script>
+<script type="text/javascript" src=game/draw.js></script>
+<script type="text/javascript" src=game/flow.js></script>
+<script type="text/javascript" src=game/info.js></script>
+<script type="text/javascript" src=game/upgrades.js></script>
+<script type="text/javascript" src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script>
+<script type="text/javascript">
+// Called when the API is finished loading
+function onLoadCompleted(){
+	// Get a global reference to the kongregate API. This way, pages included in the
+	// iframe can access it by using "parent.kongregate"
+	kongregate = kongregateAPI.getAPI();
+	// Embed the game into the "contentdiv" div, which is defined below. You can also
+	// manually create your own iframe, this function is just for convenience. 
+	// This example also passes along the kongregate user_id and game_auth_token so 
+	// that the page can use them for authentication.
+	var params = "kongregate_user_id=" + kongregate.services.getUserId() + 
+			   "&kongregate_game_auth_token=" + kongregate.services.getGameAuthToken();
+	kongregateAPI.embedFrame("game.html?" + params);
+}
+
+// Begin the process of loading the Kongregate API:
+kongregateAPI.loadAPI(onLoadCompleted);
+</script>
+<script> window.onload = main; </script>
+</head>
+<body>
+<div id="game">
+	<canvas id="graph" class="graph" width=620 height=300></canvas>
+	<div id="context" class="context"></div>
+	<div id="money" class="money">Money:</div>
+	<div id="moneyamt" class="moneyamt"></div>
+	<div id="statusLog" class="statusLog"></div>
+	<div id="tabselect" class="tabselect"></div>
+	
+	<div id="list" class="companyList"></div>
+	
+	<br>
+</div>
+</body>

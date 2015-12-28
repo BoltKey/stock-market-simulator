@@ -7,7 +7,20 @@ function draw() {
 		totincome += c.production.money * c.owned;
 	}
 	$("#moneyamt").html("<b>" + p(money) + "</b> (+" + p(totincome) + ")");
-	for (i = 0; i < companies.length; ++i) {
+	var c = listctx;
+	
+	c.font = "10px Arial";
+	c.clearRect(0, 0, 1000, 1000 );
+	for (b of buttons) {
+		if (typeof(b.style) !== "undefined")
+			c.fillStyle = b.style;
+		else 
+			c.fillStyle = "red";
+		c.fillRect(b.x, b.y, b.w, b.h);
+		c.fillStyle = "black";
+		c.fillText(b.t, (2 * b.x + b.w) / 2, b.y + 16);
+	}
+	/*for (i = 0; i < companies.length; ++i) {
 		var c = companies[i];
 		$("#costc" + i).html(p(c.cost) + " / " + p(c.cost * sellValue));
 		$("#costc" + i).css("color", getColorScale((c.cost - c.mincost * 2) / (c.mincost * 6)));
@@ -21,8 +34,8 @@ function draw() {
 		$("#costs" + i).css("color", getColorScale((c.cost - c.mincost * 2) / (c.mincost * 4)));
 		$("#owneds" + i).html(p(c.owned));
 		$("#sells" + i).html(p(c.owned * c.cost * sellValue));
-	}
-
+	}*/
+	
 }
 
 function printCompany(c, sel) {

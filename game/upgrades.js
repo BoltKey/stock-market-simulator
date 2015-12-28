@@ -16,7 +16,7 @@ UpgradeManager = function() {
 		symbol: "↕", 
 		cost: 500,
 		repeat: true,
-		tooltip: function() {return "<b>Market advisor</b><br> Let's you change growth rate twice as fast.";}
+		tooltip: function() {return "<b>Market advisor</b><br> Lets you change growth rate twice as fast.";}
 		},
 		{f: function() {companies.push(new Company("Local woodworks", 100, {money: 0.1, wood: 0.008}, 20, 2, 6, 0)); draw();}, 
 		symbol: "⛏", 
@@ -41,7 +41,7 @@ UpgradeManager = function() {
 		symbol: "🏦", 
 		repeat: false,
 		cost: 1000,
-		tooltip: function() {return "<b>Unlock Bank</b><br> It's time to step up your game. Bank produces considerable amount of money by itself.";}
+		tooltip: function() {return "<b>Unlock Bank</b><br> It is time to step up your game. Bank produces considerable amount of money by itself.";}
 		},
 		
 		{f: function() {changeStyle = 60; draw();}, 
@@ -59,14 +59,14 @@ UpgradeManager = function() {
 		{f: function() {sellValue += 0.05; draw();}, 
 		symbol: "🐧", 
 		cost: 120000,
-		repeat: false,
+		repeat: true,
 		tooltip: function() {return "<b>Personal consultant</b><br> Take advice from your well-educated consultant once in a while and sell everything 5% better.";}
 		},
 		{f: function() {companies.push(new Company("Oil rigs", 70000, {money: 150, oil: 8}, 20, 60, 2, -3)); draw();}, 
 		symbol: "💧", 
 		cost: 100000,
 		repeat: false,
-		tooltip: function() {return "<b>Unlock Oil rigs</b><br>Time to go global. Get access to the world's finest oil sources.";}
+		tooltip: function() {return "<b>Unlock Oil rigs</b><br>Time to go global. Get access to the finest oil sources across the continent.";}
 		},
 		{f: function() {
 			$.grep(companies, function(a) {return a.name === "Lemonade stall"})[0].buylimit += 100; 
@@ -96,7 +96,7 @@ UpgradeManager = function() {
 		{f: function() {INTERVAL = 600; lasttick = Math.floor(Date.now() / INTERVAL); draw();}, 
 		symbol: "🐚", 
 		cost: 2000000,
-		repeat: false,
+		repeat: true,
 		tooltip: function() {return "<b>Time warp</b><br>Reduce interval between ticks to flopping 0.6 seconds.";}
 		},
 		{f: function() {companies.push(new Company("Hard dos", 3600000, {money: 30000}, 20, 240, 6, -5)); draw()},
@@ -115,7 +115,7 @@ UpgradeManager = function() {
 		symbol: "中",
 		cost: 4500000000,
 		repeat: false,
-		tooltip: function() {return "<b>Unlock Spinoegg</b><br>The world's largest oil enterprise. Produces a lot of oil.";}
+		tooltip: function() {return "<b>Unlock Spinoegg</b><br>The largest oil enterprise in the world. Produces a lot of oil.";}
 		},
 		{f: function() {companies.push(new Company("NACA", 5000000000, {money: 70000000}, 20, 480, 4, -5)); draw()},
 		symbol: "🌛",
@@ -133,7 +133,7 @@ UpgradeManager = function() {
 		symbol: "🐎",
 		cost: 4500000000000,
 		repeat: false,
-		tooltip: function() {return "<b>Unlock Horse cars inc.</b><br>Some call this company l'Amghorbini, but they are really called just Horse cars.";}
+		tooltip: function() {return "<b>Unlock Horse cars inc.</b><br>Some call this company l`Amghorbini, but they are really called just Horse cars.";}
 		},
 		{f: function() {INTERVAL = 300; lasttick = Math.floor(Date.now() / INTERVAL); draw()},
 		symbol: "📞",
