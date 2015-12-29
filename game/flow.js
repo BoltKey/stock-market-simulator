@@ -204,17 +204,7 @@ function save() {
 }
 function load() {
 	companies = JSON.parse(localStorage.getItem("saveComp"));
-
-	lasttick = JSON.parse(localStorage.getItem("saveTime"));
-	console.log("from save: " + lasttick)
-	console.log("now:       " + Math.floor(Date.now() / INTERVAL));
-	eventsShown = JSON.parse(localStorage.getItem("saveEvents"));
-	
-	money = localStorage.getItem("saveMoney") * 1;
 	stock = JSON.parse(localStorage.getItem("saveStock"));
-	
-	statusLog("Welcome back! You have been away for " + p(Math.floor(Date.now() / INTERVAL) - lasttick) + " ticks (" + p((Math.floor(Date.now() / INTERVAL) - lasttick) * (INTERVAL / 1000)) + " seconds)");
-	// I don't know how to do this sort of stuff, so I am just going to copy missing methods from new Company object
 	for (c of companies.concat(stock)) {
 		a = new Company();
 		m = Object.getOwnPropertyNames(a).filter(function (p) {
@@ -228,6 +218,21 @@ function load() {
 	miniUps = JSON.parse(localStorage.getItem("saveUps"));
 	upgradeManager = new UpgradeManager();
 	upgradeManager.visible = localStorage.getItem("saveVis");
+	lasttick = JSON.parse(localStorage.getItem("saveTime"));
+	console.log("from save: " + lasttick);
+	
+	eventsShown = JSON.parse(localStorage.getItem("saveEvents"));
+	
+	money = localStorage.getItem("saveMoney") * 1;
+	
+	
+	
+	
+	console.log("now:       " + Math.floor(Date.now() / INTERVAL));
+	statusLog("Welcome back! You have been away for " + p(Math.floor(Date.now() / INTERVAL) - lasttick) + " ticks (" + p((Math.floor(Date.now() / INTERVAL) - lasttick) * (INTERVAL / 1000)) + " seconds)");
+	
+	
+	
 	
 }
 function wipe() {
