@@ -11,6 +11,7 @@ function draw() {
 	
 	c.font = "10px Arial";
 	c.clearRect(0, 0, 1000, 1000 );
+	upgradeManager.updateStyle;
 	for (b of buttons) {
 		if (typeof(b.style) !== "undefined")
 			c.fillStyle = b.style;
@@ -35,7 +36,18 @@ function draw() {
 		$("#owneds" + i).html(p(c.owned));
 		$("#sells" + i).html(p(c.owned * c.cost * sellValue));
 	}*/
-	
+	for (b of $.grep(buttons, function(a) {return a.id.substring(0, 4) === "cost";})) {
+		b.t = p((b.id[4] === "s" ? stock : companies)[b.id[5]].cost);
+	}
+	for (b of $.grep(buttons, function(a) {return a.id.substring(0, 5) === "owned";})) {
+		b.t = p((b.id[5] === "s" ? stock : companies)[b.id[6]].owned);
+	}
+	for (b of $.grep(buttons, function(a) {return a.id.substring(0, 7) === "growthc";})) {
+		b.t = p(companies[b.id[7]].tendence);
+	}
+	for (b of $.grep(buttons, function(a) {return a.id.substring(0, 6) === "sellms";})) {
+		b.t = p(stock[b.id[6]].owned * stock[b.id[6]].cost * sellValue);
+	}
 }
 
 function printCompany(c, sel) {

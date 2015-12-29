@@ -21,6 +21,7 @@ for (i = 0; i < 100; ++i) {
 function tabSelect(x) {
 	tabSelected = x;
 	updateButtons();
+	upgradeManager.updateStyle();
 }
 
 function main() {
@@ -123,6 +124,7 @@ function mainloop() {
 			
 		}
 	}
+	draw();
 }
 
 function tick(multi) {
@@ -133,9 +135,8 @@ function tick(multi) {
 	if (typeof(kongregate) !== "undefined") {
 		kongregate.stats.submit("Money",money);
 	}
-	updateButtons();
+	//updateButtons();
 	save();
-	draw();
 }
 
 function updateButtons() {
@@ -176,8 +177,6 @@ function updateButtons() {
 				buttons.push({id: 'up' + i, t: u.symbol, x: 10 + 90 * (i % 6), y: 10 + 90 * Math.floor(i / 6), w: 80, h: 80, hover: new Function("a", 'printUpgrade(upgradeManager.upgrades[' + i + '])'), click: new Function("a", "upgradeManager.buy(" + i + ")")});
 			}
 	}
-	
-	draw();
 }
 function statusLog(str) {
 	var time = new Date();
