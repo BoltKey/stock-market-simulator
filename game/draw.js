@@ -21,21 +21,6 @@ function draw() {
 		c.fillStyle = "black";
 		c.fillText(b.t, (2 * b.x + b.w) / 2, b.y + 16);
 	}
-	/*for (i = 0; i < companies.length; ++i) {
-		var c = companies[i];
-		$("#costc" + i).html(p(c.cost) + " / " + p(c.cost * sellValue));
-		$("#costc" + i).css("color", getColorScale((c.cost - c.mincost * 2) / (c.mincost * 6)));
-		$("#ownedc" + i).html(p(c.owned) + "/" + p(c.buylimit));
-		$("#growthc" + i).html(p(c.tendence));
-		$("#growthc" + i).css("color", getColorScale((c.tendence - 0.95) * 18));
-	}
-	for (i = 0; i < stock.length; ++i) {
-		var c = stock[i];
-		$("#costs" + i).html(p(c.cost * sellValue));
-		$("#costs" + i).css("color", getColorScale((c.cost - c.mincost * 2) / (c.mincost * 4)));
-		$("#owneds" + i).html(p(c.owned));
-		$("#sells" + i).html(p(c.owned * c.cost * sellValue));
-	}*/
 	for (b of $.grep(buttons, function(a) {return a.id.substring(0, 4) === "cost";})) {
 		b.t = p((b.id[4] === "s" ? stock : companies)[b.id[5]].cost);
 	}
